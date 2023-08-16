@@ -1,15 +1,47 @@
 ---
+
 ---
 
+<style lang="scss">
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap");
+
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  body {
+    display: grid;
+    justify-items: center;
+    background: #010b13;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Noto Sans", sans-serif;
+  }
+  h1 {
+    font-size: 10rem;
+    color: azure;
+    margin: 0;
+    place-self: center;
+    user-select: none;
+    transition: all 500ms ease-in;
+    &:hover {
+      color: #1f51ff;
+      text-shadow: 0 0 15px;
+    }
+  }
+</style>
+
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>lazbo</title>
+  </head>
+  <body>
+    <h1>lazbo.</h1>
+  </body>
 </html>
