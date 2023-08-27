@@ -1,13 +1,13 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/lang";
+import MainLayout from "../../layouts/MainLayout.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/lang";
 
 const t = useTranslations(getLangFromUrl(Astro.url), "Index");
 ---
 
 {/*viewOn@style*/}
 <style lang="scss">
-  @import "../styles/variables.scss";
+  @import "../../styles/variables.scss";
 
   #hero {
     display: flex;
@@ -46,27 +46,6 @@ const t = useTranslations(getLangFromUrl(Astro.url), "Index");
       }
     }
   }
-
-  #about,
-  #skills,
-  #portfolio,
-  #contact {
-    height: 50vh;
-    width: 100%;
-  }
-
-  #about {
-    background: blue;
-  }
-  #skills {
-    background: purple;
-  }
-  #portfolio {
-    background: yellow;
-  }
-  #contact {
-    background: green;
-  }
 </style>
 {/*viewOff@style*/}
 
@@ -80,9 +59,5 @@ const t = useTranslations(getLangFromUrl(Astro.url), "Index");
       <a>{t(["Hero", "workTogether"])}</a>
     </div>
   </section>
-  <section id="about"></section>
-  <section id="skills"></section>
-  <section id="portfolio"></section>
-  <section id="contact"></section>
 </MainLayout>
 {/*viewOff@element*/}

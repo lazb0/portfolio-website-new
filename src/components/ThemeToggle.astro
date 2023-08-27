@@ -1,0 +1,133 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+{/*viewOn@style*/}
+<style lang="scss">
+  #themeToggle {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+  }
+
+  #sun,
+  #moon {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    &:hover {
+      color: lighten(#000, 25%);
+    }
+    &:active {
+      color: lighten(#000, 35%);
+    }
+  }
+
+  :global(.dark) #sun {
+    display: block;
+  }
+  :global(.light) #sun {
+    display: none;
+  }
+
+  :global(.dark) #moon {
+    display: none;
+  }
+  :global(.light) #moon {
+    display: block;
+  }
+</style>
+{/*viewOff@style*/}
+
+{/*viewOn@element*/}
+<button id="themeToggle">
+  <Icon name="ph:sun-fill" id="sun" />
+  <Icon name="ph:moon-fill" id="moon" />
+</button>
+{/*viewOff@element*/}
+
+{/*viewOn@script*/}
+<script is:inline>
+  const lightSchemeIcon = document.querySelector("link#light-scheme-favicon");
+  const darkSchemeIcon = document.querySelector("link#dark-scheme-favicon");
+  const documentElement = document.documentElement;
+  const matcher = window.matchMedia("(prefers-color-scheme: dark)");
+  let theme;
+
+  const onThemeChange = () => {
+    if (theme === "dark") documentElement.classList.replace("light", "dark");
+    else documentElement.classList.replace("dark", "light");
+
+    switchColors(theme === "dark");
+
+    localStorage.setItem("theme", theme);
+  };
+
+  const handleToggleClick = () => {
+    theme = theme === "light" ? "dark" : "light";
+    onThemeChange();
+  };
+
+  function onPrefersUpdate() {
+    if (matcher.matches) {
+      lightSchemeIcon.remove();
+      document.head.append(darkSchemeIcon);
+      onThemeChange(true);
+    } else {
+      document.head.append(lightSchemeIcon);
+      darkSchemeIcon.remove();
+      onThemeChange(false);
+    }
+  }
+
+  const switchColors = (isDark) => {
+    documentElement.style.setProperty(
+      "--themed-first-color",
+      getComputedStyle(documentElement).getPropertyValue(
+        `--${isDark ? "dark" : "light"}-first-color`,
+      ),
+    );
+    documentElement.style.setProperty(
+      "--themed-second-color",
+      getComputedStyle(documentElement).getPropertyValue(
+        `--${isDark ? "dark" : "light"}-second-color`,
+      ),
+    );
+  };
+
+  if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+    theme = localStorage.getItem("theme");
+  }
+
+  if (matcher.matches) {
+    if (!theme) theme = "dark";
+
+    lightSchemeIcon.remove();
+    document.head.append(darkSchemeIcon);
+  } else {
+    if (!theme) theme = "light";
+
+    document.head.append(lightSchemeIcon);
+    darkSchemeIcon.remove();
+  }
+
+  if (theme === "light") {
+    documentElement.classList.remove("dark");
+    documentElement.classList.add("light");
+    switchColors(false);
+  } else {
+    documentElement.classList.remove("light");
+    documentElement.classList.add("dark");
+  }
+
+  window.localStorage.setItem("theme", theme);
+
+  document
+    .getElementById("themeToggle")
+    .addEventListener("click", handleToggleClick);
+  matcher.addEventListener("change", onPrefersUpdate);
+</script>
+{/*viewOff@script*/}

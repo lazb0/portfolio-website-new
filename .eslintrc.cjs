@@ -1,6 +1,29 @@
 module.exports = {
-  parserOptions: {
-    ecmaVersion: "latest"
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "ecmaFeatures": {
+    "modules": true,
+    "spread" : true,
+    "restParams" : true
+  },
+  "env" : {
+    "browser" : true,
+    "node" : true,
+    "es6" : true
+  },
+  "rules" : {
+    "no-unused-vars" : 2,
+    "no-undef" : 2
+  },
+  "parserOptions": {
+    "sourceType": "module"
   },
   overrides: [
     {

@@ -1,3 +1,11 @@
 {
-  "extends": "astro/tsconfigs/strict"
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "types": ["@astrojs/image/client"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": [
+      "dom.iterable"
+    ]
+  }
 }

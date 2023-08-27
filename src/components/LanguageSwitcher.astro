@@ -1,0 +1,63 @@
+---
+import { AVAILABLE_LANGS, DEFAULT_LANG, getLangFromUrl } from "../i18n/lang";
+
+const currLang = getLangFromUrl(Astro.url);
+---
+
+{/*viewOn@style*/}
+<style lang="scss">
+  #langSelect {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 1.25rem;
+    padding: 5px 1px;
+    cursor: pointer;
+    font-family: "Lexend", sans-serif;
+    &:hover {
+      color: lighten(#000, 25%);
+    }
+  }
+</style>
+{/*viewOff@style*/}
+
+{/*viewOn@element*/}
+<div>
+  <select
+    aria-label="Select Language"
+    id="langSelect"
+    autocomplete="off"
+    defaultLang={DEFAULT_LANG}
+  >
+    {
+      AVAILABLE_LANGS.map((lang) => (
+        <option value={lang} selected={lang === currLang ? "selected" : false}>
+          {lang.toUpperCase()}
+        </option>
+      ))
+    }
+  </select>
+</div>
+{/*viewOff@element*/}
+
+{/*viewOn@script*/}
+<script>
+  const selectElement: HTMLSelectElement = document.getElementById(
+    "langSelect",
+  ) as HTMLSelectElement;
+
+  const defaultLang = selectElement.getAttribute("defaultLang");
+  const currentLang = selectElement.selectedOptions[0].value;
+
+  selectElement.addEventListener("change", () => {
+    const selectedLang = selectElement.selectedOptions[0].value;
+
+    if (currentLang === defaultLang)
+      location.pathname = `/${selectedLang}${location.pathname}`;
+    else if (selectedLang === defaultLang)
+      location.pathname = location.pathname.split("/").splice(2).join("/");
+    else
+      location.pathname = location.pathname.replace(currentLang, selectedLang);
+  });
+</script>
+{/*viewOff@script*/}

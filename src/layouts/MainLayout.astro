@@ -1,0 +1,36 @@
+---
+import "../styles/globals.scss";
+
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+---
+
+{/*viewOn@element*/}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon_white.svg"
+      id="dark-scheme-favicon"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon.svg"
+      id="light-scheme-favicon"
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>lazbo</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+{/*viewOff@element*/}

@@ -1,0 +1,129 @@
+---
+import { Icon } from "astro-icon/components";
+import ThemeToggle from "./ThemeToggle.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+
+interface HeaderLink {
+  href: string;
+  text?: string;
+  icon?: string;
+}
+
+const NAVBAR_LINKS: HeaderLink[] = [
+  { href: "#", text: "Home" },
+  { href: "#about", text: "About" },
+  { href: "#skills", text: "Skills" },
+  { href: "#portfolio", text: "Portfolio" },
+  { href: "#contact", text: "Contact" },
+];
+const SOCIAL_LINKS: HeaderLink[] = [
+  { href: "https://www.linkedin.com/in/lazbo/", icon: "mdi:linkedin" },
+  { href: "https://github.com/lazb0", icon: "mdi:github" },
+  { href: "https://www.instagram.com/lazbo_dev/", icon: "mdi:instagram" },
+];
+---
+
+{/*viewOn@style*/}
+<style lang="scss">
+  @import "../styles/variables.scss";
+
+  header {
+    position: relative;
+    background: $greenColor;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    height: $headerHeight;
+    z-index: 100;
+    font-family: "Lexend", sans-serif;
+  }
+
+  #logo {
+    height: 30px;
+    width: 90px;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+  }
+
+  nav {
+    flex-grow: 1;
+    margin-right: 20vw;
+    display: flex;
+    place-items: center;
+    justify-content: space-around;
+    & > ul {
+      display: flex;
+      gap: 2vw;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      & > li > a {
+        &:hover {
+          text-decoration: underline;
+          color: lighten(#000, 25%);
+        }
+        &:active {
+          color: lighten(#000, 35%);
+        }
+      }
+    }
+  }
+  .socialLinkIcon {
+    width: 35px;
+    height: 35px;
+    &:hover {
+      color: lighten(#000, 25%);
+    }
+    &:active {
+      color: lighten(#000, 35%);
+    }
+  }
+
+  #themeLangTogglers {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+  }
+</style>
+{/*viewOff@style*/}
+
+{/*viewOn@element*/}
+<header>
+  <a href="/"><Icon name="logo" id="logo" /></a>
+  <nav>
+    <ul>
+      {
+        NAVBAR_LINKS.map(({ href, text }) => (
+          <li>
+            <a href={href}>{text}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <div>
+      <ul>
+        {
+          SOCIAL_LINKS.map(({ href, icon }) => (
+            <li>
+              <a href={href} target="_blank" rel="nofollow noreferrer">
+                <Icon name={icon} class="socialLinkIcon" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
+  <div id="themeLangTogglers">
+    <ThemeToggle />
+    <LanguageSwitcher />
+  </div>
+</header>
+{/*viewOff@element*/}
